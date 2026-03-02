@@ -18,21 +18,21 @@
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         body { font-family: 'Inter', system-ui, sans-serif; background: var(--light); color: var(--dark); overflow-x: hidden; }
 
-        /* --- DYNAMIC SPLASH SCREEN --- */
+        /* --- DYNAMIC CIRCULAR SPLASH --- */
         #splash {
             position: fixed; inset: 0; background: var(--grad); color: white;
             display: flex; justify-content: center; align-items: center; z-index: 3000;
             transition: opacity 0.8s ease;
         }
         .splash-circle {
-            width: 180px; height: 180px; border: 3px solid rgba(255,255,255,0.1);
-            border-top: 3px solid var(--primary); border-radius: 50%;
+            width: 190px; height: 190px; border: 4px solid rgba(255,255,255,0.05);
+            border-top: 4px solid var(--primary); border-radius: 50%;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             animation: rotateCircle 2s linear infinite;
         }
         .splash-content { animation: pulseText 2s ease-in-out infinite; text-align: center; }
         @keyframes rotateCircle { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        @keyframes pulseText { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(0.95); opacity: 0.7; } }
+        @keyframes pulseText { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(0.92); opacity: 0.8; } }
 
         /* --- HEADER --- */
         header {
@@ -40,50 +40,51 @@
             z-index: 1000; color: white; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
         .nav-container { display: flex; justify-content: space-between; align-items: center; max-width: 800px; margin: auto; }
-        .logo-area { display: flex; align-items: center; gap: 10px; color: var(--primary); }
-        .logo-icon { font-size: 1.4rem; }
-        .logo-text { font-weight: 400; font-size: 1.1rem; letter-spacing: 0.5px; color: white; }
-        #menu-btn { background: none; border: none; font-size: 1.5rem; color: white; cursor: pointer; padding: 5px; }
+        .logo-area { display: flex; align-items: center; gap: 12px; }
+        .logo-icon { font-size: 1.5rem; color: var(--primary); }
+        .logo-text { font-weight: 300; font-size: 1.15rem; color: #fff; letter-spacing: 0.5px; }
+        #menu-btn { background: none; border: none; font-size: 1.6rem; color: white; cursor: pointer; padding: 5px; display: block; }
 
-        /* --- HERO & ADS --- */
-        .hero { width: 100%; height: 160px; background: #000; border-radius: 20px; margin-bottom: 20px; overflow: hidden; position: relative; }
-        .video-placeholder { width: 100%; height: 100%; background: #1e293b; display: flex; align-items: center; justify-content: center; color: #475569; flex-direction: column; }
-        .ad-banner { width: 100%; height: 60px; background: #fff; border: 1px solid #e2e8f0; margin-top: 25px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: #94a3b8; letter-spacing: 2px; position: relative; overflow: hidden; }
-        .ad-ribbon { width: 4px; height: 100%; background: linear-gradient(to bottom, #4285F4, #34A853, #FBBC05, #EA4335); position: absolute; left: 0; }
-
-        /* --- CONTENT VIEWS --- */
-        main { padding: 20px; max-width: 800px; margin: auto; padding-bottom: 100px; }
-        .view { display: none; animation: fadeIn 0.4s ease; }
-        .view.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* --- CARDS --- */
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .card { background: white; border-radius: 18px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: 0.3s; cursor: pointer; }
-        .card:active { transform: scale(0.95); }
-        .c-img { height: 90px; background: var(--grad); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 2rem; }
-        .c-txt { padding: 12px; text-align: center; font-weight: 700; font-size: 0.8rem; }
-
-        /* --- UI ELEMENTS --- */
-        .section-box { background: white; padding: 20px; border-radius: 20px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
-        input { width: 100%; padding: 14px; margin: 10px 0; border: 1px solid #e2e8f0; border-radius: 12px; background: #f8fafc; font-size: 1rem; }
-        .btn-action { width: 100%; padding: 16px; background: var(--grad); color: var(--primary); border: 1px solid var(--primary); border-radius: 12px; font-weight: 800; cursor: pointer; }
-        
-        /* --- MENU --- */
+        /* --- MENU DROPDOWN --- */
         #menu-dropdown { 
             position: absolute; top: 65px; right: 20px; background: white; width: 220px; 
             border-radius: 15px; box-shadow: 0 10px 40px rgba(0,0,0,0.3); 
             display: none; flex-direction: column; overflow: hidden; z-index: 2000; 
         }
-        #menu-dropdown a { padding: 16px 20px; text-decoration: none; color: var(--dark); font-size: 0.9rem; border-bottom: 1px solid #f1f5f9; display: flex; align-items: center; gap: 10px; }
+        #menu-dropdown a { padding: 16px 20px; text-decoration: none; color: var(--dark); font-size: 0.95rem; border-bottom: 1px solid #f1f5f9; display: flex; align-items: center; gap: 12px; }
         #menu-dropdown a:hover { background: #f8fafc; color: var(--accent); }
 
-        /* --- FOOTER --- */
-        footer { position: fixed; bottom: 0; width: 100%; background: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #eee; z-index: 1000; }
-        .f-btn { background: var(--light); border: none; padding: 10px 18px; border-radius: 10px; font-weight: 700; cursor: pointer; color: var(--dark); }
-        .f-credit { font-size: 0.8rem; color: var(--dark); text-align: center; }
+        /* --- HERO & ADS --- */
+        .hero { width: 100%; height: 170px; background: #000; border-radius: 24px; margin-bottom: 25px; overflow: hidden; position: relative; }
+        .video-placeholder { width: 100%; height: 100%; background: #1e293b; display: flex; align-items: center; justify-content: center; color: #475569; flex-direction: column; }
+        .ad-banner { width: 100%; height: 65px; background: #fff; border: 1px solid #e2e8f0; margin-top: 30px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: #94a3b8; letter-spacing: 2.5px; position: relative; overflow: hidden; }
+        .ad-ribbon { width: 5px; height: 100%; background: linear-gradient(to bottom, #4285F4, #34A853, #FBBC05, #EA4335); position: absolute; left: 0; }
 
-        iframe { width: 100%; height: 450px; border: 1px solid #eee; border-radius: 12px; }
+        /* --- MAIN VIEWS --- */
+        main { padding: 20px; max-width: 800px; margin: auto; padding-bottom: 110px; }
+        .view { display: none; animation: slideIn 0.4s ease-out; }
+        .view.active { display: block; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- GRID CARDS --- */
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+        .card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.04); transition: 0.3s; cursor: pointer; }
+        .card:active { transform: scale(0.96); }
+        .c-img { height: 100px; background: var(--grad); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 2.2rem; }
+        .c-txt { padding: 14px; text-align: center; font-weight: 700; font-size: 0.85rem; }
+
+        /* --- UI BOXES --- */
+        .section-box { background: white; padding: 24px; border-radius: 24px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.02); }
+        input { width: 100%; padding: 15px; margin: 12px 0; border: 1.5px solid #e2e8f0; border-radius: 14px; background: #f8fafc; font-size: 1rem; outline: none; transition: 0.2s; }
+        input:focus { border-color: var(--primary); background: white; }
+        .btn-action { width: 100%; padding: 16px; background: var(--grad); color: var(--primary); border: 1.5px solid var(--primary); border-radius: 14px; font-weight: 800; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* --- FOOTER --- */
+        footer { position: fixed; bottom: 0; width: 100%; background: white; padding: 18px 25px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #eee; z-index: 1000; }
+        .f-btn { background: #f1f5f9; border: none; padding: 12px 20px; border-radius: 12px; font-weight: 700; cursor: pointer; color: var(--dark); min-width: 80px; }
+        .f-credit { font-size: 0.85rem; color: var(--dark); text-align: center; }
+
+        iframe { width: 100%; height: 480px; border: 1px solid #eee; border-radius: 16px; }
         .hide { display: none !important; }
     </style>
 </head>
@@ -92,9 +93,9 @@
     <div id="splash">
         <div class="splash-circle">
             <div class="splash-content">
-                <i class="fas fa-database" style="font-size: 1.5rem; color: var(--primary); margin-bottom: 5px;"></i>
-                <h1 style="font-size: 1rem; font-weight: 300;">FIELD DATA</h1>
-                <p style="font-size: 0.6rem; color: var(--primary); letter-spacing: 2px;">PRO VERSION</p>
+                <i class="fas fa-sync-alt" style="font-size: 1.8rem; color: var(--primary); margin-bottom: 8px;"></i>
+                <h1 style="font-size: 1.1rem; font-weight: 300; letter-spacing: 1px;">FIELD DATA</h1>
+                <p style="font-size: 0.65rem; color: var(--primary); letter-spacing: 3px;">PRO VERSION</p>
             </div>
         </div>
     </div>
@@ -102,17 +103,18 @@
     <header>
         <div class="nav-container">
             <div class="logo-area">
-                <i class="fas fa-cloud-arrow-up logo-icon"></i>
+                <i class="fas fa-database logo-icon"></i>
                 <span class="logo-text">Field Data Pro</span>
             </div>
             <div style="position: relative;">
-                <button id="menu-btn"><i class="fas fa-bars-staggered"></i></button>
+                <button id="menu-btn" onclick="toggleMenu(event)"><i class="fas fa-bars-staggered"></i></button>
                 <div id="menu-dropdown">
-                    <a href="#" data-link="home"><i class="fas fa-home"></i> Home</a>
-                    <a href="#" data-link="connect"><i class="fas fa-link"></i> Connect File</a>
-                    <a href="#" data-link="current"><i class="fas fa-file-alt"></i> Current Doc</a>
-                    <a href="#" data-link="records"><i class="fas fa-history"></i> Entry Record</a>
-                    <a href="#" data-link="about"><i class="fas fa-info-circle"></i> About Us</a>
+                    <a href="#" onclick="navigate('home')"><i class="fas fa-home"></i> Home</a>
+                    <a href="#" onclick="navigate('connect')"><i class="fas fa-link"></i> Connect File</a>
+                    <a href="#" onclick="navigate('current')"><i class="fas fa-file-alt"></i> Current Doc</a>
+                    <a href="#" onclick="navigate('records')"><i class="fas fa-history"></i> Entry Record</a>
+                    <a href="#" onclick="navigate('tutorial')"><i class="fas fa-graduation-cap"></i> Tutorial</a>
+                    <a href="#" onclick="navigate('about')"><i class="fas fa-info-circle"></i> About</a>
                 </div>
             </div>
         </div>
@@ -122,26 +124,26 @@
         <section id="home" class="view active">
             <div class="hero">
                 <div class="video-placeholder">
-                    <i class="fas fa-play-circle" style="font-size: 2.5rem; opacity: 0.2; margin-bottom: 10px;"></i>
-                    <p style="font-size: 0.6rem; letter-spacing: 1px;">HERO_MP4_PLACEHOLDER</p>
+                    <i class="fas fa-play-circle" style="font-size: 3rem; opacity: 0.15; margin-bottom: 12px;"></i>
+                    <p style="font-size: 0.65rem; letter-spacing: 1.5px; opacity: 0.5;">HERO_MP4_PLACEHOLDER</p>
                 </div>
             </div>
             <div class="grid">
-                <div class="card" onclick="showPage('connect')">
+                <div class="card" onclick="navigate('connect')">
                     <div class="c-img"><i class="fas fa-plug"></i></div>
                     <div class="c-txt">Connect File</div>
                 </div>
-                <div class="card" onclick="showPage('current')">
-                    <div class="c-img"><i class="fas fa-table"></i></div>
+                <div class="card" onclick="navigate('current')">
+                    <div class="c-img"><i class="fas fa-eye"></i></div>
                     <div class="c-txt">Current Doc</div>
                 </div>
-                <div class="card" onclick="showPage('records')">
+                <div class="card" onclick="navigate('records')">
                     <div class="c-img"><i class="fas fa-file-csv"></i></div>
                     <div class="c-txt">Entry Record</div>
                 </div>
-                <div class="card" onclick="showPage('about')">
-                    <div class="c-img"><i class="fas fa-users"></i></div>
-                    <div class="c-txt">About Us</div>
+                <div class="card" onclick="navigate('tutorial')">
+                    <div class="c-img"><i class="fas fa-book-open"></i></div>
+                    <div class="c-txt">Tutorial</div>
                 </div>
             </div>
             <div class="ad-banner">
@@ -152,104 +154,100 @@
 
         <section id="connect" class="view">
             <div class="section-box">
-                <h3>Spreadsheet Config</h3>
-                <input type="text" id="sheet-url" placeholder="Paste Shared Google Sheet Link">
-                <button class="btn-action" onclick="saveAndConnect()">Save & Initialize</button>
+                <h3>Cloud Sync Setup</h3>
+                <input type="text" id="sheet-url" placeholder="Paste Shared Google Sheet URL">
+                <button class="btn-action" onclick="saveAndConnect()">Initialize & Save</button>
+                <p style="font-size: 0.7rem; color: #ef4444; margin-top: 10px; cursor: pointer; text-align: center;" onclick="clearSaved()">[ Forget Saved Link ]</p>
             </div>
             <div id="form-container" class="section-box hide">
-                <p id="geo-status" style="font-size:0.7rem; color:var(--accent); margin-bottom:10px;"></p>
+                <p id="geo-status" style="font-size:0.75rem; color:var(--accent); margin-bottom:12px; font-weight: 600;"></p>
                 <div id="dynamic-inputs"></div>
-                <button class="btn-action" onclick="submitEntry()">Submit Data</button>
+                <button class="btn-action" onclick="submitEntry()">Send to Sheet</button>
             </div>
         </section>
 
         <section id="current" class="view">
             <div class="section-box">
-                <h3>Live Preview</h3>
-                <div id="preview-area" style="text-align: center; color: #94a3b8; padding: 40px 0;">
-                    <i class="fas fa-file-circle-exclamation" style="font-size: 2rem; display: block; margin-bottom: 10px;"></i>
-                    Link a file to see preview
+                <h3>Live Sheet Preview</h3>
+                <div id="preview-area" style="text-align: center; color: #94a3b8; padding: 50px 0;">
+                    <i class="fas fa-file-excel" style="font-size: 2.5rem; display: block; margin-bottom: 15px; opacity: 0.3;"></i>
+                    Connect a document to enable preview.
                 </div>
             </div>
         </section>
 
         <section id="records" class="view">
             <div class="section-box">
-                <h3>Submission Log</h3>
-                <button class="btn-action" style="background:#10b981; color:white; border:none; margin-bottom:15px;" onclick="exportCSV()">Download CSV Backup</button>
-                <div id="log-list">No local records.</div>
+                <h3>Local Entry Log</h3>
+                <button class="btn-action" style="background:#10b981; color:white; border:none; margin-bottom:20px;" onclick="exportCSV()">Export Backup (CSV)</button>
+                <div id="log-list">No local records available.</div>
+            </div>
+        </section>
+
+        <section id="tutorial" class="view">
+            <div class="section-box">
+                <h3>Guide: How to Use</h3>
+                <div style="font-size:0.95rem; line-height:1.9;">
+                    <p>1. <strong>Create Sheet:</strong> Add headers in Row 1.</p>
+                    <p>2. <strong>Permissions:</strong> Share the sheet as 'Editor' for 'Anyone with the link'.</p>
+                    <p>3. <strong>Link:</strong> Paste URL in 'Connect File' and click Initialize.</p>
+                    <p>4. <strong>Fill:</strong> Form appears; if your sheet has 'Latitude' or 'Longitude' columns, we fill them for you!</p>
+                </div>
             </div>
         </section>
 
         <section id="about" class="view">
             <div class="section-box" style="text-align:center">
-                <h2 style="color:var(--primary); margin-bottom:10px;">WebFits</h2>
-                <p style="color:var(--gray); font-size:0.9rem;">Empowering Field Work through Automation.</p>
+                <h2 style="color:var(--primary); margin-bottom:8px;">WebFits</h2>
+                <p style="color:var(--gray); font-size:0.9rem;">Modern Solutions for Modern Fieldwork.</p>
                 <hr style="margin:20px 0; opacity:0.1">
-                <p style="font-size:0.8rem;">Email: contact@webfits.com</p>
-                <p style="font-size:0.8rem;">Portal: www.webfits.com</p>
+                <p style="font-size:0.85rem;">Email: contact@webfits.com</p>
+                <p style="font-size:0.85rem;">Support: www.webfits.com</p>
             </div>
         </section>
     </main>
 
     <footer>
-        <button class="f-btn" id="prev-btn">PREV</button>
+        <button class="f-btn" onclick="navFooter(-1)">PREV</button>
         <div class="f-credit"><strong>App by WebFits</strong></div>
-        <button class="f-btn" id="next-btn">NEXT</button>
+        <button class="f-btn" onclick="navFooter(1)">NEXT</button>
     </footer>
 
     <script>
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxoLYyfdJkiceHsRgSbX9kDIprtkhSmclGpmuOvse21GNzB91JmBZ7e9mOSzPDvdBwd/exec";
-        const pageOrder = ['home', 'connect', 'current', 'records', 'about'];
-        let currentPageIndex = 0;
+        const pages = ['home', 'connect', 'current', 'records', 'tutorial', 'about'];
+        let currentIdx = 0;
 
-        // --- NAVIGATION ENGINE ---
-        function showPage(id) {
+        // --- NAVIGATION LOGIC ---
+        function navigate(pageId) {
             document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-            const activePage = document.getElementById(id);
-            if(activePage) activePage.classList.add('active');
+            const target = document.getElementById(pageId);
+            if(target) target.classList.add('active');
             
-            currentPageIndex = pageOrder.indexOf(id);
+            currentIdx = pages.indexOf(pageId);
             document.getElementById('menu-dropdown').style.display = 'none';
             window.scrollTo(0,0);
         }
 
-        document.getElementById('next-btn').onclick = () => {
-            if(currentPageIndex < pageOrder.length - 1) {
-                showPage(pageOrder[currentPageIndex + 1]);
+        function navFooter(direction) {
+            let next = currentIdx + direction;
+            if (next >= 0 && next < pages.length) {
+                navigate(pages[next]);
             }
-        };
+        }
 
-        document.getElementById('prev-btn').onclick = () => {
-            if(currentPageIndex > 0) {
-                showPage(pageOrder[currentPageIndex - 1]);
-            }
-        };
-
-        // --- MENU LOGIC ---
-        const menuBtn = document.getElementById('menu-btn');
-        const menuDropdown = document.getElementById('menu-dropdown');
-
-        menuBtn.onclick = (e) => {
+        function toggleMenu(e) {
             e.stopPropagation();
-            menuDropdown.style.display = (menuDropdown.style.display === 'flex') ? 'none' : 'flex';
-        };
+            const dd = document.getElementById('menu-dropdown');
+            dd.style.display = (dd.style.display === 'flex') ? 'none' : 'flex';
+        }
 
-        document.querySelectorAll('#menu-dropdown a').forEach(link => {
-            link.onclick = (e) => {
-                e.preventDefault();
-                showPage(link.getAttribute('data-link'));
-            };
-        });
-
-        window.onclick = () => menuDropdown.style.display = 'none';
-
-        // --- CORE FUNCTIONALITY ---
+        // --- CORE LOGIC ---
         window.onload = () => {
-            const savedUrl = localStorage.getItem('field_pro_url');
-            if(savedUrl) {
-                document.getElementById('sheet-url').value = savedUrl;
-                updatePreview(savedUrl);
+            const saved = localStorage.getItem('fp_saved_url');
+            if(saved) {
+                document.getElementById('sheet-url').value = saved;
+                setPreview(saved);
             }
             setTimeout(() => {
                 document.getElementById('splash').style.opacity = '0';
@@ -260,27 +258,26 @@
 
         async function saveAndConnect() {
             const url = document.getElementById('sheet-url').value;
-            if(!url) return alert("Please enter a link");
-            localStorage.setItem('field_pro_url', url);
-            updatePreview(url);
+            if(!url || !url.includes("google.com/spreadsheets")) return alert("Valid Spreadsheet link required.");
+            localStorage.setItem('fp_saved_url', url);
+            setPreview(url);
             
-            const container = document.getElementById('dynamic-inputs');
-            container.innerHTML = "<p style='text-align:center; padding:20px;'>Fetching fields...</p>";
+            const box = document.getElementById('dynamic-inputs');
+            box.innerHTML = "<p style='text-align:center; padding:20px; color:var(--accent); font-weight:bold;'>FETCHING FIELDS...</p>";
             document.getElementById('form-container').classList.remove('hide');
 
-            // Geo Logic
             if(navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(p => {
                     window.lat = p.coords.latitude;
                     window.lng = p.coords.longitude;
-                    document.getElementById('geo-status').innerHTML = `<i class="fas fa-location-dot"></i> GPS Active: ${window.lat.toFixed(4)}, ${window.lng.toFixed(4)}`;
+                    document.getElementById('geo-status').innerHTML = `<i class="fas fa-location-dot"></i> GPS Locked: ${window.lat.toFixed(4)}, ${window.lng.toFixed(4)}`;
                 });
             }
 
             try {
                 const res = await fetch(`${SCRIPT_URL}?action=getHeaders&sheetUrl=${encodeURIComponent(url)}`, { redirect: 'follow' });
                 const headers = await res.json();
-                container.innerHTML = "";
+                box.innerHTML = "";
                 headers.forEach(h => {
                     if(h.toLowerCase() === 'timestamp') return;
                     const input = document.createElement('input');
@@ -288,16 +285,16 @@
                     input.dataset.h = h;
                     if(h.toLowerCase().includes('latitude') && window.lat) input.value = window.lat;
                     if(h.toLowerCase().includes('longitude') && window.lng) input.value = window.lng;
-                    container.appendChild(input);
+                    box.appendChild(input);
                 });
-            } catch (e) { alert("Connect Error. Check link permissions."); }
+            } catch (e) { alert("Initialization failed. Check Sheet permissions."); }
         }
 
-        function updatePreview(url) {
+        function setPreview(url) {
             const area = document.getElementById('preview-area');
             if(url.includes('/edit')) {
-                const previewUrl = url.replace('/edit', '/preview');
-                area.innerHTML = `<iframe src="${previewUrl}"></iframe>`;
+                const pUrl = url.replace('/edit', '/preview');
+                area.innerHTML = `<iframe src="${pUrl}"></iframe>`;
             }
         }
 
@@ -308,32 +305,33 @@
             
             try {
                 await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ sheetUrl: url, fields }) });
-                const log = JSON.parse(localStorage.getItem('field_pro_logs') || '[]');
-                log.push({ date: new Date().toLocaleString(), data: fields });
-                localStorage.setItem('field_pro_logs', JSON.stringify(log));
-                alert("Data Sent!");
+                const logs = JSON.parse(localStorage.getItem('fp_logs') || '[]');
+                logs.push({ stamp: new Date().toLocaleString(), data: fields });
+                localStorage.setItem('fp_logs', JSON.stringify(logs));
+                alert("Data Successfully Logged.");
                 renderLogs();
-            } catch (e) { alert("Submission Error"); }
+            } catch (e) { alert("Network error. Try again."); }
         }
 
         function renderLogs() {
-            const log = JSON.parse(localStorage.getItem('field_pro_logs') || '[]');
+            const logs = JSON.parse(localStorage.getItem('fp_logs') || '[]');
             const list = document.getElementById('log-list');
-            if(!log.length) return;
-            list.innerHTML = log.map(i => `<div style="font-size:0.7rem; padding:10px; border-bottom:1px solid #eee;"><b>${i.date}</b><br>${JSON.stringify(i.data)}</div>`).reverse().join('');
+            if(!logs.length) return;
+            list.innerHTML = logs.map(i => `<div style="font-size:0.75rem; padding:12px; border-bottom:1px solid #eee; background:#fff;"><b>${i.stamp}</b><br>${JSON.stringify(i.data).replace(/[{}"]/g, '')}</div>`).reverse().join('');
         }
 
         function exportCSV() {
-            const log = JSON.parse(localStorage.getItem('field_pro_logs') || '[]');
-            if(!log.length) return alert("No data");
-            let csv = "Date,Data\n" + log.map(i => `${i.date},"${JSON.stringify(i.data).replace(/"/g, '""')}"`).join("\n");
+            const logs = JSON.parse(localStorage.getItem('fp_logs') || '[]');
+            if(!logs.length) return alert("Nothing to export.");
+            let csv = "Timestamp,Data\n" + logs.map(i => `${i.stamp},"${JSON.stringify(i.data).replace(/"/g, '""')}"`).join("\n");
             const blob = new Blob([csv], { type: 'text/csv' });
             const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = "field_data_backup.csv";
-            a.click();
+            const a = document.createElement('a'); a.href = url; a.download = "FieldData_Backup.csv"; a.click();
         }
+
+        function clearSaved() { localStorage.removeItem('fp_saved_url'); location.reload(); }
+
+        window.onclick = () => document.getElementById('menu-dropdown').style.display = 'none';
     </script>
 </body>
 </html>
