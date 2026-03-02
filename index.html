@@ -12,10 +12,18 @@
             --light: #f8fafc;
             --accent: #38bdf8;
             --white: #ffffff;
+            --gray: #64748b;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--light); color: var(--dark); overflow-x: hidden; }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: var(--light); 
+            color: var(--dark); 
+            overflow-x: hidden;
+            line-height: 1.5;
+        }
 
         /* --- SPLASH SCREEN --- */
         #splash {
@@ -23,23 +31,22 @@
             display: flex; justify-content: center; align-items: center; z-index: 2000;
             transition: opacity 0.8s ease;
         }
-        .splash-content { text-align: center; animation: zoomIn 1s ease; }
-        .tagline { color: var(--accent); font-size: 0.9rem; margin-top: 5px; letter-spacing: 1px; }
-        .splash-credit { position: absolute; bottom: 30px; font-size: 0.8rem; opacity: 0.5; width: 100%; text-align: center; }
-        @keyframes zoomIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+        .splash-content { text-align: center; }
+        .splash-content h1 { font-size: 2.2rem; margin-bottom: 5px; }
+        .tagline { color: var(--accent); font-size: 0.9rem; letter-spacing: 1px; }
 
         /* --- HEADER --- */
         header {
             background: var(--white); padding: 15px 20px; position: sticky; top: 0; 
             z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
-        .nav-container { display: flex; justify-content: space-between; align-items: center; max-width: 800px; margin: auto; }
-        .logo { font-weight: 800; color: var(--primary); font-size: 1.2rem; display: flex; align-items: center; gap: 8px; }
-        #menu-btn { background: none; border: none; font-size: 1.5rem; color: var(--dark); cursor: pointer; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; max-width: 600px; margin: auto; }
+        .logo { font-weight: 800; color: var(--primary); font-size: 1.1rem; }
+        #menu-btn { background: none; border: none; font-size: 1.4rem; color: var(--dark); cursor: pointer; }
 
         /* --- DROPDOWN --- */
         #menu-dropdown {
-            position: absolute; top: 65px; right: 20px; background: white; width: 200px;
+            position: absolute; top: 65px; right: 20px; background: white; width: 180px;
             border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); display: none;
             flex-direction: column; overflow: hidden; border: 1px solid #eee;
         }
@@ -47,35 +54,39 @@
         #menu-dropdown a:hover { background: #f0f7ff; color: var(--primary); }
 
         /* --- MAIN VIEWS --- */
-        main { padding: 20px; max-width: 800px; margin: auto; padding-bottom: 100px; }
-        .view { display: none; animation: slideUp 0.4s ease; }
+        main { padding: 20px; max-width: 600px; margin: auto; padding-bottom: 100px; }
+        .view { display: none; animation: slideUp 0.3s ease-out; }
         .view.active { display: block; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- HOME CARDS --- */
+        /* --- HOME GRID --- */
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .card {
             background: white; border-radius: 16px; overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05); transition: 0.3s; cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05); transition: 0.2s; cursor: pointer;
         }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
-        .c-img { height: 100px; background: var(--primary); display: flex; align-items: center; justify-content: center; color: white; font-size: 2.5rem; }
-        .c-txt { padding: 12px; text-align: center; font-weight: 600; font-size: 0.85rem; }
+        .card:active { transform: scale(0.97); }
+        .c-img { height: 90px; background: var(--primary); display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem; }
+        .c-txt { padding: 12px; text-align: center; font-weight: 600; font-size: 0.8rem; }
 
-        /* --- FORMS --- */
-        .section-box { background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.03); }
-        input { width: 100%; padding: 14px; margin: 10px 0; border: 1px solid #e2e8f0; border-radius: 10px; font-size: 1rem; background: #fcfdfe; }
+        /* --- UI COMPONENTS --- */
+        .section-box { background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
+        h3 { margin-bottom: 15px; font-size: 1.1rem; }
+        input { width: 100%; padding: 14px; margin: 10px 0; border: 1px solid #e2e8f0; border-radius: 10px; font-size: 1rem; background: #fcfdfe; outline: none; }
+        input:focus { border-color: var(--primary); }
         .btn-action { width: 100%; padding: 15px; background: var(--primary); color: white; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; margin-top: 10px; }
+        .btn-action:disabled { background: #cbd5e1; cursor: not-allowed; }
         
         /* --- FOOTER --- */
         footer {
-            position: fixed; bottom: 0; width: 100%; background: white; padding: 15px 20px;
+            position: fixed; bottom: 0; width: 100%; background: white; padding: 12px 20px;
             display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #eee; z-index: 1000;
         }
-        .f-btn { background: none; border: none; color: var(--primary); font-weight: 700; cursor: pointer; padding: 5px 15px; }
-        .f-credit { font-size: 0.75rem; color: #94a3b8; }
+        .f-btn { background: none; border: none; color: var(--primary); font-weight: 700; cursor: pointer; padding: 5px 10px; }
+        .f-credit { font-size: 0.7rem; color: var(--gray); }
 
         .hide { display: none !important; }
+        .status-msg { font-size: 0.8rem; text-align: center; margin-top: 10px; color: var(--primary); font-weight: 600; }
     </style>
 </head>
 <body>
@@ -85,20 +96,17 @@
             <h1>Field DATA Pro</h1>
             <p class="tagline">a Google Sheet filler</p>
         </div>
-        <div class="splash-credit">App by WebFits</div>
     </div>
 
     <header>
         <div class="nav-container">
-            <div class="logo"><i class="fas fa-file-csv"></i> FIELD DATA PRO</div>
+            <div class="logo"><i class="fas fa-database"></i> FD PRO</div>
             <div class="menu-sys">
                 <button id="menu-btn" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
                 <div id="menu-dropdown">
                     <a href="#" onclick="showPage('home')">Home</a>
                     <a href="#" onclick="showPage('connect')">Connect File</a>
-                    <a href="#" onclick="showPage('current')">Current Doc</a>
                     <a href="#" onclick="showPage('records')">Entry Record</a>
-                    <a href="#" onclick="showPage('tutorial')">Tutorial</a>
                     <a href="#" onclick="showPage('about')">About</a>
                 </div>
             </div>
@@ -109,217 +117,193 @@
         <section id="home" class="view active">
             <div class="grid">
                 <div class="card" onclick="showPage('connect')">
-                    <div class="c-img"><i class="fas fa-plug"></i></div>
+                    <div class="c-img"><i class="fas fa-plus-circle"></i></div>
                     <div class="c-txt">Connect File</div>
                 </div>
-                <div class="card" onclick="showPage('current')">
-                    <div class="c-img"><i class="fas fa-table"></i></div>
-                    <div class="c-txt">Current Doc</div>
-                </div>
                 <div class="card" onclick="showPage('records')">
-                    <div class="c-img"><i class="fas fa-list-check"></i></div>
+                    <div class="c-img"><i class="fas fa-clock-rotate-left"></i></div>
                     <div class="c-txt">Entry Record</div>
-                </div>
-                <div class="card" onclick="showPage('tutorial')">
-                    <div class="c-img"><i class="fas fa-book"></i></div>
-                    <div class="c-txt">Tutorial</div>
                 </div>
             </div>
         </section>
 
         <section id="connect" class="view">
             <div class="section-box">
-                <h3>Link Google Sheet</h3>
-                <input type="text" id="sheet-url" placeholder="Paste Shared Link here...">
-                <button class="btn-action" onclick="fetchFormFields()">Fetch Fields</button>
+                <h3>Link Spreadsheet</h3>
+                <input type="text" id="sheet-url" placeholder="Paste Google Sheet Link">
+                <button id="fetch-btn" class="btn-action" onclick="fetchSheetHeaders()">Fetch Fields</button>
+                <div id="fetch-status" class="status-msg"></div>
             </div>
-            <div id="form-container" class="section-box hide">
-                <h4 id="file-display-name">File: Loaded Sheet</h4>
-                <div id="dynamic-inputs"></div>
-                <button class="btn-action" onclick="submitData()">Submit Entry</button>
-                <button style="background:#64748b" class="btn-action" onclick="undoLast()">Undo Last Entry</button>
-            </div>
-        </section>
 
-        <section id="current" class="view">
-            <div class="section-box">
-                <h3>Document Content</h3>
-                <p style="font-size: 0.8rem; color: #64748b;">Read-only view of the connected sheet.</p>
-                <div id="doc-viewer" style="margin-top:15px; overflow-x:auto;">
-                    <p>No active document connected.</p>
-                </div>
+            <div id="form-container" class="section-box hide">
+                <h4 style="margin-bottom:10px; color:var(--primary)">Data Entry Form</h4>
+                <div id="dynamic-inputs"></div>
+                <button id="submit-btn" class="btn-action" onclick="pushToSheet()">Submit to Sheet</button>
             </div>
         </section>
 
         <section id="records" class="view">
             <div class="section-box">
-                <h3>Your Submission Log</h3>
-                <div id="log-list"></div>
-            </div>
-        </section>
-
-        <section id="tutorial" class="view">
-            <div class="section-box">
-                <h3>How to use</h3>
-                <p>1. Open Google Sheets & create headers in Row 1.</p>
-                <p>2. Share the sheet: "Anyone with the link can edit".</p>
-                <p>3. Paste the link into <strong>Connect File</strong>.</p>
-                <p>4. Fill in the data fields and tap <strong>Enter/Submit</strong>.</p>
+                <h3>Your Submissions</h3>
+                <div id="log-list" style="font-size:0.85rem">No entries found.</div>
+                <button class="btn-action" style="background:#ef4444; margin-top:20px" onclick="clearLocalHistory()">Clear My History</button>
             </div>
         </section>
 
         <section id="about" class="view">
             <div class="section-box" style="text-align:center">
                 <h2 style="color:var(--primary)">WebFits</h2>
-                <p>High-efficiency data collection tools.</p>
-                <p style="margin:10px 0;">Email: <a href="mailto:contact@webfits.com">contact@webfits.com</a></p>
-                <hr style="margin:20px 0; border:0; border-top:1px solid #eee">
-                <h4>Other Apps</h4>
-                <div class="grid" style="margin-top:15px">
-                    <div class="card" style="height:auto">
-                        <div class="c-img" style="height:60px; font-size:1.2rem"><i class="fas fa-search"></i></div>
-                        <div class="c-txt" style="font-size:0.7rem">SEO Word Compiler</div>
-                    </div>
-                    <div class="card" style="height:auto">
-                        <div class="c-img" style="height:60px; font-size:1.2rem; background:#10b981"><i class="fas fa-coins"></i></div>
-                        <div class="c-txt" style="font-size:0.7rem">Crypto Validator</div>
-                    </div>
-                </div>
+                <p>Digital bridging for field workers.</p>
+                <hr style="margin:15px 0; border:0; border-top:1px solid #f1f5f9">
+                <p>Email: <a href="mailto:contact@webfits.com">contact@webfits.com</a></p>
             </div>
         </section>
     </main>
 
     <footer>
-        <button class="f-btn" onclick="goPrev()">PREV</button>
+        <button class="f-btn" onclick="window.history.back()">PREV</button>
         <div class="f-credit">App by WebFits</div>
-        <button class="f-btn" onclick="goNext()">NEXT</button>
+        <button class="f-btn" onclick="showPage('home')">HOME</button>
     </footer>
 
     <script>
-        // REPLACE THIS WITH YOUR DEPLOYED GOOGLE APPS SCRIPT URL
+        // --- CONFIGURATION ---
+        // PASTE YOUR GOOGLE APPS SCRIPT URL HERE
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxoLYyfdJkiceHsRgSbX9kDIprtkhSmclGpmuOvse21GNzB91JmBZ7e9mOSzPDvdBwd/exec"; 
 
-        // Splash Transition
-        window.addEventListener('load', () => {
+        // Initializing
+        window.onload = () => {
             setTimeout(() => {
                 const splash = document.getElementById('splash');
                 splash.style.opacity = '0';
                 setTimeout(() => splash.classList.add('hide'), 800);
-            }, 2500);
-            updateLog();
-        });
+            }, 2000);
+            renderLog();
+        };
 
-        // Navigation Logic
-        let pageHistory = ['home'];
+        // Navigation
         function showPage(id) {
             document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
             document.getElementById(id).classList.add('active');
             document.getElementById('menu-dropdown').style.display = 'none';
-            if(pageHistory[pageHistory.length-1] !== id) pageHistory.push(id);
             window.scrollTo(0,0);
         }
 
-        function goPrev() { if(pageHistory.length > 1) { pageHistory.pop(); showPage(pageHistory[pageHistory.length-1]); } }
-        function goNext() { /* Implementation depends on UX flow, usually placeholder for form sequences */ }
-
         function toggleMenu() {
             const dd = document.getElementById('menu-dropdown');
-            dd.style.display = dd.style.display === 'flex' ? 'none' : 'flex';
+            dd.style.display = (dd.style.display === 'flex') ? 'none' : 'flex';
         }
 
-        // Close menu on tap outside
-        window.onclick = (e) => {
-            if (!e.target.closest('.menu-sys')) document.getElementById('menu-dropdown').style.display = 'none';
-        }
+        // --- CORE LOGIC ---
 
-        // Data Fetching Logic
-        async function fetchFormFields() {
-            const url = document.getElementById('sheet-url').value;
-            if(!url) return alert("Please paste a valid sheet link.");
-            
-            const btn = event.target;
-            btn.innerText = "Connecting...";
-            
+        async function fetchSheetHeaders() {
+            const sheetUrl = document.getElementById('sheet-url').value;
+            const status = document.getElementById('fetch-status');
+            const btn = document.getElementById('fetch-btn');
+
+            if(!sheetUrl.includes("docs.google.com/spreadsheets")) {
+                return alert("Please paste a valid Google Sheet URL.");
+            }
+
+            btn.disabled = true;
+            status.innerText = "Connecting to Google...";
+
             try {
-                // We use GET to fetch headers from Google Apps Script
-                const response = await fetch(`${SCRIPT_URL}?action=getHeaders&sheetUrl=${encodeURIComponent(url)}`);
+                // Fetching headers using GET
+                const response = await fetch(`${SCRIPT_URL}?action=getHeaders&sheetUrl=${encodeURIComponent(sheetUrl)}`, {
+                    method: 'GET',
+                    redirect: 'follow'
+                });
+
                 const headers = await response.json();
-                
+
                 if(headers.error) throw new Error(headers.error);
 
-                const inputContainer = document.getElementById('dynamic-inputs');
-                inputContainer.innerHTML = "";
+                const container = document.getElementById('dynamic-inputs');
+                container.innerHTML = "";
                 
                 headers.forEach(h => {
-                    if(h.toLowerCase() === 'timestamp') return;
-                    const input = document.createElement('input');
-                    input.placeholder = h;
-                    input.setAttribute('data-header', h);
-                    inputContainer.appendChild(input);
+                    if(h && h.toLowerCase() !== 'timestamp') {
+                        const input = document.createElement('input');
+                        input.placeholder = h;
+                        input.setAttribute('data-header', h);
+                        container.appendChild(input);
+                    }
                 });
 
                 document.getElementById('form-container').classList.remove('hide');
-                btn.innerText = "Fetch Fields";
+                status.innerText = "Connected Successfully!";
             } catch (err) {
-                alert("Connection failed. Check your script URL and Sheet permissions.");
-                btn.innerText = "Fetch Fields";
+                console.error(err);
+                alert("Connection failed. \n1. Is the script deployed as 'Anyone'?\n2. Is the Sheet shared as 'Editor'?");
+                status.innerText = "Error connecting.";
+            } finally {
+                btn.disabled = false;
             }
         }
 
-        async function submitData() {
-            const url = document.getElementById('sheet-url').value;
+        async function pushToSheet() {
+            const sheetUrl = document.getElementById('sheet-url').value;
+            const btn = document.getElementById('submit-btn');
             const inputs = document.querySelectorAll('#dynamic-inputs input');
             const fields = {};
-            
+
             inputs.forEach(i => fields[i.getAttribute('data-header')] = i.value);
 
-            const btn = event.target;
+            btn.disabled = true;
             btn.innerText = "Submitting...";
 
             try {
-                const response = await fetch(SCRIPT_URL, {
+                // Note: mode 'no-cors' is used because GAS doesn't return CORS headers on POST
+                await fetch(SCRIPT_URL, {
                     method: 'POST',
-                    mode: 'no-cors', // Standard for GAS POST
-                    body: JSON.stringify({ sheetUrl: url, fields: fields })
+                    mode: 'no-cors',
+                    cache: 'no-cache',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ sheetUrl, fields })
                 });
 
-                // Since no-cors doesn't allow reading the response, we assume success after the fetch finishes
-                saveLocalEntry(fields);
-                alert("Entry Recorded!");
-                inputs.forEach(i => i.value = ""); // Reset
+                // Assume success if no error is thrown
+                saveToLocalLog(fields);
+                alert("Data sent to sheet!");
+                inputs.forEach(i => i.value = ""); // Clear form
             } catch (e) {
-                alert("Error submitting data.");
+                alert("Submission failed. Check your connection.");
             } finally {
-                btn.innerText = "Submit Entry";
+                btn.disabled = false;
+                btn.innerText = "Submit to Sheet";
             }
         }
 
-        function saveLocalEntry(data) {
-            let log = JSON.parse(localStorage.getItem('fd_log') || '[]');
-            const entry = { id: log.length + 1, date: new Date().toLocaleString(), content: data };
-            log.push(entry);
-            localStorage.setItem('fd_log', JSON.stringify(log));
-            updateLog();
+        function saveToLocalLog(data) {
+            let log = JSON.parse(localStorage.getItem('webfits_log') || '[]');
+            log.push({
+                time: new Date().toLocaleTimeString(),
+                date: new Date().toLocaleDateString(),
+                data: data
+            });
+            localStorage.setItem('webfits_log', JSON.stringify(log));
+            renderLog();
         }
 
-        function updateLog() {
-            const log = JSON.parse(localStorage.getItem('fd_log') || '[]');
+        function renderLog() {
+            const log = JSON.parse(localStorage.getItem('webfits_log') || '[]');
             const list = document.getElementById('log-list');
-            if(log.length === 0) { list.innerHTML = "No entries yet."; return; }
-            list.innerHTML = log.map(item => `
-                <div style="border-bottom:1px solid #eee; padding:10px 0; font-size:0.8rem">
-                    <strong>Roll #${item.id}</strong> - ${item.date}<br>
-                    <span style="color:#64748b">${JSON.stringify(item.content)}</span>
+            if(log.length === 0) return;
+
+            list.innerHTML = log.map((item, index) => `
+                <div style="border-bottom:1px solid #eee; padding:10px 0;">
+                    <strong>Entry #${index + 1}</strong> <span style="color:#94a3b8; font-size:0.7rem">${item.date} ${item.time}</span><br>
+                    <div style="margin-top:5px; color:#475569">${JSON.stringify(item.data).replace(/[{}"]/g, '')}</div>
                 </div>
             `).reverse().join('');
         }
 
-        function undoLast() {
-            alert("Contact Admin to delete rows. Local entry will be removed from your history.");
-            let log = JSON.parse(localStorage.getItem('fd_log') || '[]');
-            log.pop();
-            localStorage.setItem('fd_log', JSON.stringify(log));
-            updateLog();
+        function clearLocalHistory() {
+            if(confirm("This will only clear your history on this phone. It will NOT delete data from the Google Sheet. Proceed?")) {
+                localStorage.removeItem('webfits_log');
+                location.reload();
+            }
         }
     </script>
 </body>
