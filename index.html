@@ -13,6 +13,7 @@
             --dark: #0f172a;
             --light: #f1f5f9;
             --white: #ffffff;
+            --success: #10b981;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -43,7 +44,13 @@
         .logo-area { display: flex; align-items: center; gap: 12px; }
         .logo-icon { font-size: 1.5rem; color: var(--primary); }
         .logo-text { font-weight: 300; font-size: 1.15rem; color: #fff; letter-spacing: 0.5px; }
-        #menu-btn { background: none; border: none; font-size: 1.6rem; color: white; cursor: pointer; padding: 5px; display: block; }
+        #menu-btn { background: none; border: none; font-size: 1.6rem; color: white; cursor: pointer; padding: 5px; }
+
+        /* --- SYNC INDICATOR --- */
+        .sync-indicator { display: flex; align-items: center; gap: 8px; font-size: 0.7rem; font-weight: 700; color: #94a3b8; margin-top: 5px; }
+        .dot { width: 8px; height: 8px; border-radius: 50%; background: #475569; }
+        .dot.online { background: var(--success); box-shadow: 0 0 8px var(--success); animation: pulseDot 1.5s infinite; }
+        @keyframes pulseDot { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
 
         /* --- MENU DROPDOWN --- */
         #menu-dropdown { 
@@ -54,7 +61,7 @@
         #menu-dropdown a { padding: 16px 20px; text-decoration: none; color: var(--dark); font-size: 0.95rem; border-bottom: 1px solid #f1f5f9; display: flex; align-items: center; gap: 12px; }
         #menu-dropdown a:hover { background: #f8fafc; color: var(--accent); }
 
-        /* --- HERO & ADS --- */
+        /* --- HERO --- */
         .hero { width: 100%; height: 170px; background: #000; border-radius: 24px; margin-bottom: 25px; overflow: hidden; position: relative; }
         .video-placeholder { width: 100%; height: 100%; background: #1e293b; display: flex; align-items: center; justify-content: center; color: #475569; flex-direction: column; }
         .ad-banner { width: 100%; height: 65px; background: #fff; border: 1px solid #e2e8f0; margin-top: 30px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: #94a3b8; letter-spacing: 2.5px; position: relative; overflow: hidden; }
@@ -77,7 +84,8 @@
         .section-box { background: white; padding: 24px; border-radius: 24px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.02); }
         input { width: 100%; padding: 15px; margin: 12px 0; border: 1.5px solid #e2e8f0; border-radius: 14px; background: #f8fafc; font-size: 1rem; outline: none; transition: 0.2s; }
         input:focus { border-color: var(--primary); background: white; }
-        .btn-action { width: 100%; padding: 16px; background: var(--grad); color: var(--primary); border: 1.5px solid var(--primary); border-radius: 14px; font-weight: 800; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
+        .btn-action { width: 100%; padding: 16px; background: var(--grad); color: var(--primary); border: 1.5px solid var(--primary); border-radius: 14px; font-weight: 800; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+        .btn-undo { width: 100%; padding: 12px; background: #f1f5f9; color: #ef4444; border: 1.5px solid #ef4444; border-radius: 14px; font-weight: 700; cursor: pointer; font-size: 0.8rem; }
 
         /* --- FOOTER --- */
         footer { position: fixed; bottom: 0; width: 100%; background: white; padding: 18px 25px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #eee; z-index: 1000; }
@@ -94,8 +102,8 @@
         <div class="splash-circle">
             <div class="splash-content">
                 <i class="fas fa-sync-alt" style="font-size: 1.8rem; color: var(--primary); margin-bottom: 8px;"></i>
-                <h1 style="font-size: 1.1rem; font-weight: 300; letter-spacing: 1px;">FIELD DATA</h1>
-                <p style="font-size: 0.65rem; color: var(--primary); letter-spacing: 3px;">PRO VERSION</p>
+                <h1 style="font-size: 1.1rem; font-weight: 300;">FIELD DATA</h1>
+                <p style="font-size: 0.65rem; color: var(--primary);">PRO EDITION</p>
             </div>
         </div>
     </div>
@@ -155,14 +163,19 @@
         <section id="connect" class="view">
             <div class="section-box">
                 <h3>Cloud Sync Setup</h3>
+                <div class="sync-indicator">
+                    <div id="sync-dot" class="dot"></div>
+                    <span id="sync-text">DISCONNECTED</span>
+                </div>
                 <input type="text" id="sheet-url" placeholder="Paste Shared Google Sheet URL">
                 <button class="btn-action" onclick="saveAndConnect()">Initialize & Save</button>
-                <p style="font-size: 0.7rem; color: #ef4444; margin-top: 10px; cursor: pointer; text-align: center;" onclick="clearSaved()">[ Forget Saved Link ]</p>
+                <p style="font-size: 0.7rem; color: #ef4444; margin-top: 15px; cursor: pointer; text-align: center;" onclick="clearSaved()">[ Forget Saved Link ]</p>
             </div>
             <div id="form-container" class="section-box hide">
                 <p id="geo-status" style="font-size:0.75rem; color:var(--accent); margin-bottom:12px; font-weight: 600;"></p>
                 <div id="dynamic-inputs"></div>
                 <button class="btn-action" onclick="submitEntry()">Send to Sheet</button>
+                <button class="btn-undo" onclick="undoLastLocal()">Undo Last Entry (Local)</button>
             </div>
         </section>
 
@@ -218,23 +231,22 @@
         const pages = ['home', 'connect', 'current', 'records', 'tutorial', 'about'];
         let currentIdx = 0;
 
-        // --- NAVIGATION LOGIC ---
+        // --- NAVIGATION ---
         function navigate(pageId) {
             document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
             const target = document.getElementById(pageId);
             if(target) target.classList.add('active');
-            
             currentIdx = pages.indexOf(pageId);
             document.getElementById('menu-dropdown').style.display = 'none';
             window.scrollTo(0,0);
         }
 
-        function navFooter(direction) {
-            let next = currentIdx + direction;
-            if (next >= 0 && next < pages.length) {
-                navigate(pages[next]);
-            }
+        function navFooter(dir) {
+            let next = currentIdx + direction(dir);
+            if (next >= 0 && next < pages.length) navigate(pages[next]);
         }
+
+        function direction(val) { return val; }
 
         function toggleMenu(e) {
             e.stopPropagation();
@@ -248,6 +260,7 @@
             if(saved) {
                 document.getElementById('sheet-url').value = saved;
                 setPreview(saved);
+                updateSyncIndicator(true);
             }
             setTimeout(() => {
                 document.getElementById('splash').style.opacity = '0';
@@ -256,44 +269,68 @@
             renderLogs();
         };
 
+        function updateSyncIndicator(isOnline) {
+            const dot = document.getElementById('sync-dot');
+            const text = document.getElementById('sync-text');
+            if(isOnline) {
+                dot.classList.add('online');
+                text.innerText = "CONNECTED";
+                text.style.color = "#10b981";
+            } else {
+                dot.classList.remove('online');
+                text.innerText = "DISCONNECTED";
+                text.style.color = "#94a3b8";
+            }
+        }
+
         async function saveAndConnect() {
-            const url = document.getElementById('sheet-url').value;
-            if(!url || !url.includes("google.com/spreadsheets")) return alert("Valid Spreadsheet link required.");
-            localStorage.setItem('fp_saved_url', url);
-            setPreview(url);
+            let rawUrl = document.getElementById('sheet-url').value.trim();
+            if(!rawUrl.includes("spreadsheets/d/")) return alert("Invalid Link");
+
+            localStorage.setItem('fp_saved_url', rawUrl);
+            setPreview(rawUrl);
             
             const box = document.getElementById('dynamic-inputs');
-            box.innerHTML = "<p style='text-align:center; padding:20px; color:var(--accent); font-weight:bold;'>FETCHING FIELDS...</p>";
+            box.innerHTML = "<p style='text-align:center; padding:20px; font-weight:bold;'>SYNCING...</p>";
             document.getElementById('form-container').classList.remove('hide');
 
             if(navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(p => {
                     window.lat = p.coords.latitude;
                     window.lng = p.coords.longitude;
-                    document.getElementById('geo-status').innerHTML = `<i class="fas fa-location-dot"></i> GPS Locked: ${window.lat.toFixed(4)}, ${window.lng.toFixed(4)}`;
+                    document.getElementById('geo-status').innerHTML = `<i class="fas fa-location-dot"></i> GPS Active`;
                 });
             }
 
             try {
-                const res = await fetch(`${SCRIPT_URL}?action=getHeaders&sheetUrl=${encodeURIComponent(url)}`, { redirect: 'follow' });
-                const headers = await res.json();
+                const response = await fetch(`${SCRIPT_URL}?action=getHeaders&sheetUrl=${encodeURIComponent(rawUrl)}`, {
+                    method: 'GET', redirect: 'follow'
+                });
+                const headers = await response.json();
+                if(headers.error) throw new Error();
+
+                updateSyncIndicator(true);
                 box.innerHTML = "";
                 headers.forEach(h => {
-                    if(h.toLowerCase() === 'timestamp') return;
-                    const input = document.createElement('input');
-                    input.placeholder = h;
-                    input.dataset.h = h;
-                    if(h.toLowerCase().includes('latitude') && window.lat) input.value = window.lat;
-                    if(h.toLowerCase().includes('longitude') && window.lng) input.value = window.lng;
-                    box.appendChild(input);
+                    if(h && h.toLowerCase() !== 'timestamp') {
+                        const input = document.createElement('input');
+                        input.placeholder = h;
+                        input.dataset.h = h;
+                        if(h.toLowerCase().includes('lat') && window.lat) input.value = window.lat;
+                        if(h.toLowerCase().includes('long') && window.lng) input.value = window.lng;
+                        box.appendChild(input);
+                    }
                 });
-            } catch (e) { alert("Initialization failed. Check Sheet permissions."); }
+            } catch (e) { 
+                updateSyncIndicator(false);
+                alert("Sync Failed. Check Sheet Permissions."); 
+            }
         }
 
         function setPreview(url) {
             const area = document.getElementById('preview-area');
             if(url.includes('/edit')) {
-                const pUrl = url.replace('/edit', '/preview');
+                const pUrl = url.split('/edit')[0] + '/preview';
                 area.innerHTML = `<iframe src="${pUrl}"></iframe>`;
             }
         }
@@ -308,30 +345,45 @@
                 const logs = JSON.parse(localStorage.getItem('fp_logs') || '[]');
                 logs.push({ stamp: new Date().toLocaleString(), data: fields });
                 localStorage.setItem('fp_logs', JSON.stringify(logs));
-                alert("Data Successfully Logged.");
+                alert("Success!");
                 renderLogs();
-            } catch (e) { alert("Network error. Try again."); }
+                // Clear non-geo fields
+                document.querySelectorAll('#dynamic-inputs input').forEach(i => {
+                   if(!i.dataset.h.toLowerCase().includes('lat') && !i.dataset.h.toLowerCase().includes('long')) i.value = "";
+                });
+            } catch (e) { alert("Network Error"); }
+        }
+
+        function undoLastLocal() {
+            if(confirm("Delete last entry from local history? (Note: This does not delete it from the Google Sheet)")) {
+                let logs = JSON.parse(localStorage.getItem('fp_logs') || '[]');
+                if(logs.length > 0) {
+                    logs.pop();
+                    localStorage.setItem('fp_logs', JSON.stringify(logs));
+                    renderLogs();
+                    alert("Local entry removed.");
+                }
+            }
         }
 
         function renderLogs() {
             const logs = JSON.parse(localStorage.getItem('fp_logs') || '[]');
             const list = document.getElementById('log-list');
-            if(!logs.length) return;
+            if(!logs.length) { list.innerHTML = "No records."; return; }
             list.innerHTML = logs.map(i => `<div style="font-size:0.75rem; padding:12px; border-bottom:1px solid #eee; background:#fff;"><b>${i.stamp}</b><br>${JSON.stringify(i.data).replace(/[{}"]/g, '')}</div>`).reverse().join('');
         }
 
         function exportCSV() {
             const logs = JSON.parse(localStorage.getItem('fp_logs') || '[]');
-            if(!logs.length) return alert("Nothing to export.");
+            if(!logs.length) return alert("No data");
             let csv = "Timestamp,Data\n" + logs.map(i => `${i.stamp},"${JSON.stringify(i.data).replace(/"/g, '""')}"`).join("\n");
             const blob = new Blob([csv], { type: 'text/csv' });
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a'); a.href = url; a.download = "FieldData_Backup.csv"; a.click();
         }
 
-        function clearSaved() { localStorage.removeItem('fp_saved_url'); location.reload(); }
-
-        window.onclick = () => document.getElementById('menu-dropdown').style.display = 'none';
+        function clearSaved() { localStorage.removeItem('fp_saved_url'); updateSyncIndicator(false); location.reload(); }
+        window.onclick = (e) => { if (!e.target.closest('.menu-sys')) document.getElementById('menu-dropdown').style.display = 'none'; }
     </script>
 </body>
 </html>
