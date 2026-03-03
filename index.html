@@ -19,7 +19,7 @@
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         body { font-family: 'Inter', system-ui, sans-serif; background: var(--light); color: var(--dark); overflow-x: hidden; }
 
-        /* --- DYNAMIC CIRCULAR SPLASH WITH LOADING BAR --- */
+        /* --- SPLASH SCREEN --- */
         #splash {
             position: fixed; inset: 0; background: var(--grad); color: white;
             display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 3000;
@@ -50,12 +50,6 @@
         .logo-text { font-weight: 300; font-size: 1.15rem; color: #fff; letter-spacing: 0.5px; }
         #menu-btn { background: none; border: none; font-size: 1.6rem; color: white; cursor: pointer; padding: 5px; }
 
-        /* --- SYNC INDICATOR --- */
-        .sync-indicator { display: flex; align-items: center; gap: 8px; font-size: 0.7rem; font-weight: 700; color: #94a3b8; margin-top: 5px; }
-        .dot { width: 8px; height: 8px; border-radius: 50%; background: #475569; }
-        .dot.online { background: var(--success); box-shadow: 0 0 8px var(--success); animation: pulseDot 1.5s infinite; }
-        @keyframes pulseDot { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
-
         /* --- MENU DROPDOWN --- */
         #menu-dropdown { 
             position: absolute; top: 65px; right: 20px; background: white; width: 220px; 
@@ -65,29 +59,44 @@
         #menu-dropdown a { padding: 16px 20px; text-decoration: none; color: var(--dark); font-size: 0.95rem; border-bottom: 1px solid #f1f5f9; display: flex; align-items: center; gap: 12px; }
         #menu-dropdown a:hover { background: #f8fafc; color: var(--accent); }
 
+        /* --- HERO & AD BANNER --- */
+        .hero { width: 100%; height: 170px; background: #000; border-radius: 24px; margin-bottom: 25px; overflow: hidden; position: relative; }
+        .video-placeholder { width: 100%; height: 100%; background: #1e293b; display: flex; align-items: center; justify-content: center; color: #475569; flex-direction: column; }
+        .ad-banner { width: 100%; height: 65px; background: #fff; border: 1px solid #e2e8f0; margin-top: 30px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: #94a3b8; letter-spacing: 2.5px; position: relative; overflow: hidden; }
+        .ad-ribbon { width: 5px; height: 100%; background: linear-gradient(to bottom, #4285F4, #34A853, #FBBC05, #EA4335); position: absolute; left: 0; }
+
         /* --- MAIN VIEWS --- */
         main { padding: 20px; max-width: 800px; margin: auto; padding-bottom: 110px; }
         .view { display: none; animation: slideIn 0.4s ease-out; }
         .view.active { display: block; }
         @keyframes slideIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- UI COMPONENTS --- */
+        /* --- GRID CARDS --- */
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
         .card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.04); transition: 0.3s; cursor: pointer; }
+        .card:active { transform: scale(0.96); }
         .c-img { height: 100px; background: var(--grad); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 2.2rem; }
         .c-txt { padding: 14px; text-align: center; font-weight: 700; font-size: 0.85rem; }
 
+        /* --- UI BOXES --- */
         .section-box { background: white; padding: 24px; border-radius: 24px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.02); }
         input { width: 100%; padding: 15px; margin: 12px 0; border: 1.5px solid #e2e8f0; border-radius: 14px; background: #f8fafc; font-size: 1rem; outline: none; }
         .btn-action { width: 100%; padding: 16px; background: var(--grad); color: var(--primary); border: 1.5px solid var(--primary); border-radius: 14px; font-weight: 800; cursor: pointer; text-transform: uppercase; margin-bottom: 10px; }
         .btn-undo { width: 100%; padding: 12px; background: #fef2f2; color: #ef4444; border: 1.5px solid #fecaca; border-radius: 14px; font-weight: 700; cursor: pointer; font-size: 0.8rem; }
 
+        /* --- FOOTER --- */
         footer { position: fixed; bottom: 0; width: 100%; background: white; padding: 18px 25px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #eee; z-index: 1000; }
+        .f-btn { background: #f1f5f9; border: none; padding: 12px 20px; border-radius: 12px; font-weight: 700; cursor: pointer; color: var(--dark); min-width: 80px; }
         .f-credit { font-size: 0.85rem; color: var(--dark); text-align: center; }
-        .f-btn { background: #f1f5f9; border: none; padding: 12px 20px; border-radius: 12px; font-weight: 700; cursor: pointer; }
 
-        .hide { display: none !important; }
         iframe { width: 100%; height: 480px; border: 1px solid #eee; border-radius: 16px; }
+        .hide { display: none !important; }
+
+        /* --- SYNC INDICATOR --- */
+        .sync-indicator { display: flex; align-items: center; gap: 8px; font-size: 0.7rem; font-weight: 700; color: #94a3b8; margin-bottom: 15px; }
+        .dot { width: 8px; height: 8px; border-radius: 50%; background: #475569; }
+        .dot.online { background: var(--success); box-shadow: 0 0 8px var(--success); animation: pulseDot 1.5s infinite; }
+        @keyframes pulseDot { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
     </style>
 </head>
 <body>
@@ -96,8 +105,8 @@
         <div class="splash-circle">
             <div class="splash-content">
                 <i class="fas fa-sync-alt" style="font-size: 1.8rem; color: var(--primary); margin-bottom: 8px;"></i>
-                <h1 style="font-size: 1.1rem; font-weight: 300;">FIELD DATA PRO</h1>
-                <p style="font-size: 0.65rem; color: var(--primary);">Universal Collector</p>
+                <h1 style="font-size: 1.1rem; font-weight: 300; letter-spacing: 1px;">FIELD DATA</h1>
+                <p style="font-size: 0.65rem; color: var(--primary); letter-spacing: 3px;">PRO EDITION</p>
             </div>
         </div>
         <div class="loading-container"><div class="loading-fill"></div></div>
@@ -123,6 +132,12 @@
 
     <main>
         <section id="home" class="view active">
+            <div class="hero">
+                <div class="video-placeholder">
+                    <i class="fas fa-play-circle" style="font-size: 3rem; opacity: 0.15; margin-bottom: 12px;"></i>
+                    <p style="font-size: 0.65rem; letter-spacing: 1.5px; opacity: 0.5;">HERO_MP4_PLACEHOLDER</p>
+                </div>
+            </div>
             <div class="grid">
                 <div class="card" onclick="navigate('connect')">
                     <div class="c-img"><i class="fas fa-plug"></i></div>
@@ -141,20 +156,25 @@
                     <div class="c-txt">Tutorial</div>
                 </div>
             </div>
+            <div class="ad-banner">
+                <div class="ad-ribbon"></div>
+                GOOGLE_AD_BANNER_PLACEHOLDER
+            </div>
         </section>
 
         <section id="connect" class="view">
             <div class="section-box">
-                <h3>Cloud Sync</h3>
+                <h3>Cloud Sync Setup</h3>
                 <div class="sync-indicator">
                     <div id="sync-dot" class="dot"></div>
                     <span id="sync-text">DISCONNECTED</span>
                 </div>
                 <input type="text" id="sheet-url" placeholder="Paste Shared Google Sheet URL">
                 <button class="btn-action" onclick="saveAndConnect()">Initialize & Save</button>
+                <p style="font-size: 0.7rem; color: #ef4444; margin-top: 15px; cursor: pointer; text-align: center;" onclick="clearSaved()">[ Forget Saved Link ]</p>
             </div>
             <div id="form-container" class="section-box hide">
-                <p id="geo-status" style="font-size:0.75rem; color:var(--accent); margin-bottom:12px; font-weight:600;"></p>
+                <p id="geo-status" style="font-size:0.75rem; color:var(--accent); margin-bottom:12px; font-weight: 600;"></p>
                 <div id="dynamic-inputs"></div>
                 <button id="submit-btn" class="btn-action" onclick="submitEntry()">Send to Sheet</button>
                 <button id="undo-btn" class="btn-undo" onclick="undoCloudEntry()">Undo Last Entry (Cloud)</button>
@@ -163,31 +183,54 @@
 
         <section id="current" class="view">
             <div class="section-box">
-                <h3>Preview</h3>
-                <div id="preview-area" style="text-align: center; padding: 50px 0;">No document linked.</div>
+                <h3>Live Sheet Preview</h3>
+                <div id="preview-area" style="text-align: center; color: #94a3b8; padding: 50px 0;">
+                    <i class="fas fa-file-excel" style="font-size: 2.5rem; display: block; margin-bottom: 15px; opacity: 0.3;"></i>
+                    Connect a document to enable preview.
+                </div>
             </div>
         </section>
 
         <section id="records" class="view">
             <div class="section-box">
-                <h3>History</h3>
-                <button class="btn-action" style="background:#10b981; color:white; border:none;" onclick="exportCSV()">Export CSV</button>
-                <div id="log-list"></div>
+                <h3>Local History</h3>
+                <button class="btn-action" style="background:#10b981; color:white; border:none; margin-bottom:20px;" onclick="exportCSV()">Export Backup (CSV)</button>
+                <div id="log-list">No local records available.</div>
             </div>
         </section>
 
         <section id="tutorial" class="view">
             <div class="section-box">
-                <h3>Setup Guide</h3>
-                <p>1. Set Row 1 headers.<br>2. Share as Editor (Anyone with link).<br>3. Connect & Save.</p>
+                <h3>Universal Setup Guide</h3>
+                <div style="font-size:0.95rem; line-height:1.9;">
+                    <p><strong>1. Prepare Your Sheet:</strong> Create a Google Sheet. Ensure Row 1 contains your field names (headers).</p>
+                    <p><strong>2. Critical Sharing Step:</strong> Click the "Share" button. Change access to <strong>"Anyone with the link"</strong> and set the role to <strong>"Editor"</strong>. <i>The app will fail if this is not set to Editor.</i></p>
+                    <p><strong>3. Sync:</strong> Paste the URL in 'Connect File' and click Initialize. Your forms will generate instantly.</p>
+                    <p><strong>4. GPS Mapping:</strong> If your sheet has headers like 'Latitude' or 'Longitude', the app auto-populates your coordinates.</p>
+                </div>
             </div>
         </section>
-        
+
         <section id="about" class="view">
             <div class="section-box" style="text-align:center">
-                <h2>WebFits</h2>
-                <p>Digital Excellence in Fieldwork.</p>
-                <p>contact@webfits.com</p>
+                <h2 style="color:var(--primary); margin-bottom:10px;">WebFits</h2>
+                <p style="color:var(--gray); font-size:0.95rem; line-height:1.6; margin-bottom:20px;">
+                    WebFits is a professional application development collective dedicated to building high-performance digital tools that support and improve global productivity. Our experts manage the entire lifecycle—from initial conceptualization to the delivery of robust, working applications for individuals, businesses, and public institutions.
+                </p>
+                <h4 style="text-align:left; margin-bottom:15px; color:var(--dark);">Portfolio Spotlight</h4>
+                <div class="grid">
+                    <div class="card" style="height:auto">
+                        <div class="c-img" style="height:60px; font-size:1.5rem;"><i class="fas fa-search"></i></div>
+                        <div class="c-txt" style="font-size:0.7rem; padding:10px;"><strong>SEO Compiler</strong><br>Precision content optimization.</div>
+                    </div>
+                    <div class="card" style="height:auto">
+                        <div class="c-img" style="height:60px; font-size:1.5rem; background:var(--success);"><i class="fas fa-chart-line"></i></div>
+                        <div class="c-txt" style="font-size:0.7rem; padding:10px;"><strong>Trade Validator</strong><br>Crypto trade analysis.</div>
+                    </div>
+                </div>
+                <hr style="margin:25px 0; opacity:0.1">
+                <p style="font-size:0.85rem;">Email: contact@webfits.com</p>
+                <p style="font-size:0.85rem;">Support: www.webfits.com</p>
             </div>
         </section>
     </main>
@@ -203,6 +246,26 @@
         const pages = ['home', 'connect', 'current', 'records', 'tutorial', 'about'];
         let currentIdx = 0;
 
+        function navigate(pageId) {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            const target = document.getElementById(pageId);
+            if(target) target.classList.add('active');
+            currentIdx = pages.indexOf(pageId);
+            document.getElementById('menu-dropdown').style.display = 'none';
+            window.scrollTo(0,0);
+        }
+
+        function navFooter(dir) {
+            let next = currentIdx + dir;
+            if (next >= 0 && next < pages.length) navigate(pages[next]);
+        }
+
+        function toggleMenu(e) {
+            e.stopPropagation();
+            const dd = document.getElementById('menu-dropdown');
+            dd.style.display = (dd.style.display === 'flex') ? 'none' : 'flex';
+        }
+
         window.onload = () => {
             const saved = localStorage.getItem('fp_saved_url');
             if(saved) {
@@ -217,23 +280,6 @@
             renderLogs();
         };
 
-        function navigate(id) {
-            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            currentIdx = pages.indexOf(id);
-        }
-
-        function navFooter(dir) {
-            let next = currentIdx + dir;
-            if (next >= 0 && next < pages.length) navigate(pages[next]);
-        }
-
-        function toggleMenu(e) {
-            e.stopPropagation();
-            const dd = document.getElementById('menu-dropdown');
-            dd.style.display = (dd.style.display === 'flex') ? 'none' : 'flex';
-        }
-
         function updateSyncIndicator(online) {
             const dot = document.getElementById('sync-dot');
             const txt = document.getElementById('sync-text');
@@ -242,55 +288,39 @@
             txt.style.color = online ? '#10b981' : '#94a3b8';
         }
 
-        // --- THE POWERFUL UNIVERSAL CONNECT FUNCTION ---
         async function saveAndConnect() {
             let rawUrl = document.getElementById('sheet-url').value.trim();
-            
-            // Extract the pure ID if necessary, but openByUrl handles most
-            if(!rawUrl.includes("spreadsheets/d/")) return alert("Invalid Google Sheet Link.");
+            if(!rawUrl.includes("spreadsheets/d/")) return alert("Invalid Link");
 
             localStorage.setItem('fp_saved_url', rawUrl);
             setPreview(rawUrl);
-            
             const box = document.getElementById('dynamic-inputs');
             box.innerHTML = "<p style='text-align:center; padding:20px; font-weight:bold; color:var(--accent)'>SYNCING...</p>";
             document.getElementById('form-container').classList.remove('hide');
 
             if(navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(p => {
-                    window.lat = p.coords.latitude;
-                    window.lng = p.coords.longitude;
-                    document.getElementById('geo-status').innerHTML = `<i class="fas fa-location-dot"></i> GPS Verified`;
+                    window.lat = p.coords.latitude; window.lng = p.coords.longitude;
+                    document.getElementById('geo-status').innerHTML = `<i class="fas fa-location-dot"></i> GPS Locked`;
                 });
             }
 
             try {
-                // Latest Fetch Protocol: Handles CORS & Google Redirects
-                const response = await fetch(`${SCRIPT_URL}?action=getHeaders&sheetUrl=${encodeURIComponent(rawUrl)}`, {
-                    method: 'GET',
-                    redirect: 'follow'
-                });
-
+                const response = await fetch(`${SCRIPT_URL}?action=getHeaders&sheetUrl=${encodeURIComponent(rawUrl)}`, { method: 'GET', redirect: 'follow' });
                 const headers = await response.json();
                 if(headers.error) throw new Error(headers.error);
-
                 updateSyncIndicator(true);
                 box.innerHTML = "";
                 headers.forEach(h => {
                     if(h && h.toLowerCase() !== 'timestamp') {
                         const input = document.createElement('input');
-                        input.placeholder = h;
-                        input.dataset.h = h;
+                        input.placeholder = h; input.dataset.h = h;
                         if(h.toLowerCase().includes('lat') && window.lat) input.value = window.lat;
                         if(h.toLowerCase().includes('long') && window.lng) input.value = window.lng;
                         box.appendChild(input);
                     }
                 });
-            } catch (e) {
-                updateSyncIndicator(false);
-                alert("Fetch Error: Ensure the sheet is shared as 'Editor' with 'Anyone with the link'.");
-                box.innerHTML = "";
-            }
+            } catch (e) { updateSyncIndicator(false); alert("Sync Error: Ensure 'Editor' access is public."); box.innerHTML = ""; }
         }
 
         function setPreview(url) {
@@ -307,7 +337,6 @@
             document.querySelectorAll('#dynamic-inputs input').forEach(i => fields[i.dataset.h] = i.value);
             const btn = document.getElementById('submit-btn');
             btn.innerText = "SENDING...";
-            
             try {
                 await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ sheetUrl: url, fields }) });
                 const logs = JSON.parse(localStorage.getItem('fp_logs') || '[]');
@@ -325,29 +354,19 @@
         async function undoCloudEntry() {
             const url = document.getElementById('sheet-url').value;
             if(!confirm("Delete the last row on the Cloud Sheet?")) return;
-            const btn = document.getElementById('undo-btn');
-            btn.innerText = "DELETING...";
-
             try {
-                await fetch(SCRIPT_URL, { 
-                    method: 'POST', 
-                    mode: 'no-cors', 
-                    body: JSON.stringify({ action: 'undo', sheetUrl: url }) 
-                });
+                await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ action: 'undo', sheetUrl: url }) });
                 let logs = JSON.parse(localStorage.getItem('fp_logs') || '[]');
-                logs.pop();
-                localStorage.setItem('fp_logs', JSON.stringify(logs));
-                renderLogs();
-                alert("Cloud Row Removed.");
+                logs.pop(); localStorage.setItem('fp_logs', JSON.stringify(logs));
+                renderLogs(); alert("Cloud Row Removed.");
             } catch (e) { alert("Undo failed."); }
-            btn.innerText = "UNDO LAST ENTRY (CLOUD)";
         }
 
         function renderLogs() {
             const logs = JSON.parse(localStorage.getItem('fp_logs') || '[]');
             const list = document.getElementById('log-list');
             if(!logs.length) { list.innerHTML = "No history."; return; }
-            list.innerHTML = logs.map(i => `<div style="font-size:0.75rem; padding:10px; border-bottom:1px solid #eee; background:white;"><b>${i.stamp}</b><br>${JSON.stringify(i.data).replace(/[{}"]/g, '')}</div>`).reverse().join('');
+            list.innerHTML = logs.map(i => `<div style="font-size:0.75rem; padding:12px; border-bottom:1px solid #eee; background:white;"><b>${i.stamp}</b><br>${JSON.stringify(i.data).replace(/[{}"]/g, '')}</div>`).reverse().join('');
         }
 
         function exportCSV() {
@@ -359,6 +378,7 @@
             const a = document.createElement('a'); a.href = url; a.download = "FieldBackup.csv"; a.click();
         }
 
+        function clearSaved() { localStorage.removeItem('fp_saved_url'); updateSyncIndicator(false); location.reload(); }
         window.onclick = (e) => { if (!e.target.closest('.menu-sys')) document.getElementById('menu-dropdown').style.display = 'none'; }
     </script>
 </body>
