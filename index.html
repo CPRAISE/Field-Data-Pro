@@ -19,21 +19,25 @@
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         body { font-family: 'Inter', system-ui, sans-serif; background: var(--light); color: var(--dark); overflow-x: hidden; }
 
-        /* --- DYNAMIC CIRCULAR SPLASH --- */
+        /* --- DYNAMIC CIRCULAR SPLASH WITH LOADING BAR --- */
         #splash {
             position: fixed; inset: 0; background: var(--grad); color: white;
-            display: flex; justify-content: center; align-items: center; z-index: 3000;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 3000;
             transition: opacity 0.8s ease;
         }
         .splash-circle {
             width: 190px; height: 190px; border: 4px solid rgba(255,255,255,0.05);
             border-top: 4px solid var(--primary); border-radius: 50%;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            animation: rotateCircle 2s linear infinite;
+            animation: rotateCircle 2s linear infinite; margin-bottom: 25px;
         }
         .splash-content { animation: pulseText 2s ease-in-out infinite; text-align: center; }
+        .loading-container { width: 160px; height: 4px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; }
+        .loading-fill { width: 0%; height: 100%; background: var(--primary); animation: fillLoad 2.2s ease-in-out forwards; }
+        
         @keyframes rotateCircle { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         @keyframes pulseText { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(0.92); opacity: 0.8; } }
+        @keyframes fillLoad { 0% { width: 0%; } 100% { width: 100%; } }
 
         /* --- HEADER --- */
         header {
@@ -61,39 +65,29 @@
         #menu-dropdown a { padding: 16px 20px; text-decoration: none; color: var(--dark); font-size: 0.95rem; border-bottom: 1px solid #f1f5f9; display: flex; align-items: center; gap: 12px; }
         #menu-dropdown a:hover { background: #f8fafc; color: var(--accent); }
 
-        /* --- HERO --- */
-        .hero { width: 100%; height: 170px; background: #000; border-radius: 24px; margin-bottom: 25px; overflow: hidden; position: relative; }
-        .video-placeholder { width: 100%; height: 100%; background: #1e293b; display: flex; align-items: center; justify-content: center; color: #475569; flex-direction: column; }
-        .ad-banner { width: 100%; height: 65px; background: #fff; border: 1px solid #e2e8f0; margin-top: 30px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: #94a3b8; letter-spacing: 2.5px; position: relative; overflow: hidden; }
-        .ad-ribbon { width: 5px; height: 100%; background: linear-gradient(to bottom, #4285F4, #34A853, #FBBC05, #EA4335); position: absolute; left: 0; }
-
         /* --- MAIN VIEWS --- */
         main { padding: 20px; max-width: 800px; margin: auto; padding-bottom: 110px; }
         .view { display: none; animation: slideIn 0.4s ease-out; }
         .view.active { display: block; }
         @keyframes slideIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- GRID CARDS --- */
+        /* --- UI COMPONENTS --- */
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
         .card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.04); transition: 0.3s; cursor: pointer; }
-        .card:active { transform: scale(0.96); }
         .c-img { height: 100px; background: var(--grad); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 2.2rem; }
         .c-txt { padding: 14px; text-align: center; font-weight: 700; font-size: 0.85rem; }
 
-        /* --- UI BOXES --- */
         .section-box { background: white; padding: 24px; border-radius: 24px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.02); }
-        input { width: 100%; padding: 15px; margin: 12px 0; border: 1.5px solid #e2e8f0; border-radius: 14px; background: #f8fafc; font-size: 1rem; outline: none; transition: 0.2s; }
-        input:focus { border-color: var(--primary); background: white; }
-        .btn-action { width: 100%; padding: 16px; background: var(--grad); color: var(--primary); border: 1.5px solid var(--primary); border-radius: 14px; font-weight: 800; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
-        .btn-undo { width: 100%; padding: 12px; background: #f1f5f9; color: #ef4444; border: 1.5px solid #ef4444; border-radius: 14px; font-weight: 700; cursor: pointer; font-size: 0.8rem; }
+        input { width: 100%; padding: 15px; margin: 12px 0; border: 1.5px solid #e2e8f0; border-radius: 14px; background: #f8fafc; font-size: 1rem; outline: none; }
+        .btn-action { width: 100%; padding: 16px; background: var(--grad); color: var(--primary); border: 1.5px solid var(--primary); border-radius: 14px; font-weight: 800; cursor: pointer; text-transform: uppercase; margin-bottom: 10px; }
+        .btn-undo { width: 100%; padding: 12px; background: #fef2f2; color: #ef4444; border: 1.5px solid #fecaca; border-radius: 14px; font-weight: 700; cursor: pointer; font-size: 0.8rem; }
 
-        /* --- FOOTER --- */
         footer { position: fixed; bottom: 0; width: 100%; background: white; padding: 18px 25px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #eee; z-index: 1000; }
-        .f-btn { background: #f1f5f9; border: none; padding: 12px 20px; border-radius: 12px; font-weight: 700; cursor: pointer; color: var(--dark); min-width: 80px; }
         .f-credit { font-size: 0.85rem; color: var(--dark); text-align: center; }
+        .f-btn { background: #f1f5f9; border: none; padding: 12px 20px; border-radius: 12px; font-weight: 700; cursor: pointer; }
 
-        iframe { width: 100%; height: 480px; border: 1px solid #eee; border-radius: 16px; }
         .hide { display: none !important; }
+        iframe { width: 100%; height: 480px; border: 1px solid #eee; border-radius: 16px; }
     </style>
 </head>
 <body>
@@ -103,9 +97,10 @@
             <div class="splash-content">
                 <i class="fas fa-sync-alt" style="font-size: 1.8rem; color: var(--primary); margin-bottom: 8px;"></i>
                 <h1 style="font-size: 1.1rem; font-weight: 300;">FIELD DATA PRO</h1>
-                <p style="font-size: 0.65rem; color: var(--primary);">A GeoData Collector</p>
+                <p style="font-size: 0.65rem; color: var(--primary);">Universal Collector</p>
             </div>
         </div>
+        <div class="loading-container"><div class="loading-fill"></div></div>
     </div>
 
     <header>
@@ -114,28 +109,20 @@
                 <i class="fas fa-database logo-icon"></i>
                 <span class="logo-text">Field Data Pro</span>
             </div>
-            <div style="position: relative;">
-                <button id="menu-btn" onclick="toggleMenu(event)"><i class="fas fa-bars-staggered"></i></button>
-                <div id="menu-dropdown">
-                    <a href="#" onclick="navigate('home')"><i class="fas fa-home"></i> Home</a>
-                    <a href="#" onclick="navigate('connect')"><i class="fas fa-link"></i> Connect File</a>
-                    <a href="#" onclick="navigate('current')"><i class="fas fa-file-alt"></i> Current Doc</a>
-                    <a href="#" onclick="navigate('records')"><i class="fas fa-history"></i> Entry Record</a>
-                    <a href="#" onclick="navigate('tutorial')"><i class="fas fa-graduation-cap"></i> Tutorial</a>
-                    <a href="#" onclick="navigate('about')"><i class="fas fa-info-circle"></i> About</a>
-                </div>
+            <button id="menu-btn" onclick="toggleMenu(event)"><i class="fas fa-bars-staggered"></i></button>
+            <div id="menu-dropdown">
+                <a href="#" onclick="navigate('home')"><i class="fas fa-home"></i> Home</a>
+                <a href="#" onclick="navigate('connect')"><i class="fas fa-link"></i> Connect File</a>
+                <a href="#" onclick="navigate('current')"><i class="fas fa-file-alt"></i> Current Doc</a>
+                <a href="#" onclick="navigate('records')"><i class="fas fa-history"></i> Entry Record</a>
+                <a href="#" onclick="navigate('tutorial')"><i class="fas fa-graduation-cap"></i> Tutorial</a>
+                <a href="#" onclick="navigate('about')"><i class="fas fa-info-circle"></i> About</a>
             </div>
         </div>
     </header>
 
     <main>
         <section id="home" class="view active">
-            <div class="hero">
-                <div class="video-placeholder">
-                    <i class="fas fa-play-circle" style="font-size: 3rem; opacity: 0.15; margin-bottom: 12px;"></i>
-                    <p style="font-size: 0.65rem; letter-spacing: 1.5px; opacity: 0.5;">HERO_MP4_PLACEHOLDER</p>
-                </div>
-            </div>
             <div class="grid">
                 <div class="card" onclick="navigate('connect')">
                     <div class="c-img"><i class="fas fa-plug"></i></div>
@@ -154,68 +141,53 @@
                     <div class="c-txt">Tutorial</div>
                 </div>
             </div>
-            <div class="ad-banner">
-                <div class="ad-ribbon"></div>
-                GOOGLE_AD_BANNER_PLACEHOLDER
-            </div>
         </section>
 
         <section id="connect" class="view">
             <div class="section-box">
-                <h3>Cloud Sync Setup</h3>
+                <h3>Cloud Sync</h3>
                 <div class="sync-indicator">
                     <div id="sync-dot" class="dot"></div>
                     <span id="sync-text">DISCONNECTED</span>
                 </div>
                 <input type="text" id="sheet-url" placeholder="Paste Shared Google Sheet URL">
                 <button class="btn-action" onclick="saveAndConnect()">Initialize & Save</button>
-                <p style="font-size: 0.7rem; color: #ef4444; margin-top: 15px; cursor: pointer; text-align: center;" onclick="clearSaved()">[ Forget Saved Link ]</p>
             </div>
             <div id="form-container" class="section-box hide">
-                <p id="geo-status" style="font-size:0.75rem; color:var(--accent); margin-bottom:12px; font-weight: 600;"></p>
+                <p id="geo-status" style="font-size:0.75rem; color:var(--accent); margin-bottom:12px; font-weight:600;"></p>
                 <div id="dynamic-inputs"></div>
-                <button class="btn-action" onclick="submitEntry()">Send to Sheet</button>
-                <button class="btn-undo" onclick="undoLastLocal()">Undo Last Entry (Local)</button>
+                <button id="submit-btn" class="btn-action" onclick="submitEntry()">Send to Sheet</button>
+                <button id="undo-btn" class="btn-undo" onclick="undoCloudEntry()">Undo Last Entry (Cloud)</button>
             </div>
         </section>
 
         <section id="current" class="view">
             <div class="section-box">
-                <h3>Live Sheet Preview</h3>
-                <div id="preview-area" style="text-align: center; color: #94a3b8; padding: 50px 0;">
-                    <i class="fas fa-file-excel" style="font-size: 2.5rem; display: block; margin-bottom: 15px; opacity: 0.3;"></i>
-                    Connect a document to enable preview.
-                </div>
+                <h3>Preview</h3>
+                <div id="preview-area" style="text-align: center; padding: 50px 0;">No document linked.</div>
             </div>
         </section>
 
         <section id="records" class="view">
             <div class="section-box">
-                <h3>Local Entry Log</h3>
-                <button class="btn-action" style="background:#10b981; color:white; border:none; margin-bottom:20px;" onclick="exportCSV()">Export Backup (CSV)</button>
-                <div id="log-list">No local records available.</div>
+                <h3>History</h3>
+                <button class="btn-action" style="background:#10b981; color:white; border:none;" onclick="exportCSV()">Export CSV</button>
+                <div id="log-list"></div>
             </div>
         </section>
 
         <section id="tutorial" class="view">
             <div class="section-box">
-                <h3>Guide: How to Use</h3>
-                <div style="font-size:0.95rem; line-height:1.9;">
-                    <p>1. <strong>Create Sheet:</strong> Add headers in Row 1.</p>
-                    <p>2. <strong>Permissions:</strong> Share the sheet as 'Editor' for 'Anyone with the link'.</p>
-                    <p>3. <strong>Link:</strong> Paste URL in 'Connect File' and click Initialize.</p>
-                    <p>4. <strong>Fill:</strong> Form appears; if your sheet has 'Latitude' or 'Longitude' columns, we fill them for you!</p>
-                </div>
+                <h3>Setup Guide</h3>
+                <p>1. Set Row 1 headers.<br>2. Share as Editor (Anyone with link).<br>3. Connect & Save.</p>
             </div>
         </section>
-
+        
         <section id="about" class="view">
             <div class="section-box" style="text-align:center">
-                <h2 style="color:var(--primary); margin-bottom:8px;">WebFits</h2>
-                <p style="color:var(--gray); font-size:0.9rem;">Modern Solutions for Modern Fieldwork.</p>
-                <hr style="margin:20px 0; opacity:0.1">
-                <p style="font-size:0.85rem;">Email: contact@webfits.com</p>
-                <p style="font-size:0.85rem;">Support: www.webfits.com</p>
+                <h2>WebFits</h2>
+                <p>Digital Excellence in Fieldwork.</p>
+                <p>contact@webfits.com</p>
             </div>
         </section>
     </main>
@@ -227,34 +199,10 @@
     </footer>
 
     <script>
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyicwEC0HHUlQFAEixkXBwLatNGUFfiz3BZOIK3U71MjSa3fTJmE5KRsNFFyX4cc_DM/exec";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzTysPESQeL_WDPRE3ippSmugu8n-r_ZhB4qEp4hHbkyzcNpp603ZbKR5KWscgjB20D/exec";
         const pages = ['home', 'connect', 'current', 'records', 'tutorial', 'about'];
         let currentIdx = 0;
 
-        // --- NAVIGATION ---
-        function navigate(pageId) {
-            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-            const target = document.getElementById(pageId);
-            if(target) target.classList.add('active');
-            currentIdx = pages.indexOf(pageId);
-            document.getElementById('menu-dropdown').style.display = 'none';
-            window.scrollTo(0,0);
-        }
-
-        function navFooter(dir) {
-            let next = currentIdx + direction(dir);
-            if (next >= 0 && next < pages.length) navigate(pages[next]);
-        }
-
-        function direction(val) { return val; }
-
-        function toggleMenu(e) {
-            e.stopPropagation();
-            const dd = document.getElementById('menu-dropdown');
-            dd.style.display = (dd.style.display === 'flex') ? 'none' : 'flex';
-        }
-
-        // --- CORE LOGIC ---
         window.onload = () => {
             const saved = localStorage.getItem('fp_saved_url');
             if(saved) {
@@ -269,45 +217,62 @@
             renderLogs();
         };
 
-        function updateSyncIndicator(isOnline) {
-            const dot = document.getElementById('sync-dot');
-            const text = document.getElementById('sync-text');
-            if(isOnline) {
-                dot.classList.add('online');
-                text.innerText = "CONNECTED";
-                text.style.color = "#10b981";
-            } else {
-                dot.classList.remove('online');
-                text.innerText = "DISCONNECTED";
-                text.style.color = "#94a3b8";
-            }
+        function navigate(id) {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            currentIdx = pages.indexOf(id);
         }
 
+        function navFooter(dir) {
+            let next = currentIdx + dir;
+            if (next >= 0 && next < pages.length) navigate(pages[next]);
+        }
+
+        function toggleMenu(e) {
+            e.stopPropagation();
+            const dd = document.getElementById('menu-dropdown');
+            dd.style.display = (dd.style.display === 'flex') ? 'none' : 'flex';
+        }
+
+        function updateSyncIndicator(online) {
+            const dot = document.getElementById('sync-dot');
+            const txt = document.getElementById('sync-text');
+            dot.className = online ? 'dot online' : 'dot';
+            txt.innerText = online ? 'CONNECTED' : 'DISCONNECTED';
+            txt.style.color = online ? '#10b981' : '#94a3b8';
+        }
+
+        // --- THE POWERFUL UNIVERSAL CONNECT FUNCTION ---
         async function saveAndConnect() {
             let rawUrl = document.getElementById('sheet-url').value.trim();
-            if(!rawUrl.includes("spreadsheets/d/")) return alert("Invalid Link");
+            
+            // Extract the pure ID if necessary, but openByUrl handles most
+            if(!rawUrl.includes("spreadsheets/d/")) return alert("Invalid Google Sheet Link.");
 
             localStorage.setItem('fp_saved_url', rawUrl);
             setPreview(rawUrl);
             
             const box = document.getElementById('dynamic-inputs');
-            box.innerHTML = "<p style='text-align:center; padding:20px; font-weight:bold;'>SYNCING...</p>";
+            box.innerHTML = "<p style='text-align:center; padding:20px; font-weight:bold; color:var(--accent)'>SYNCING...</p>";
             document.getElementById('form-container').classList.remove('hide');
 
             if(navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(p => {
                     window.lat = p.coords.latitude;
                     window.lng = p.coords.longitude;
-                    document.getElementById('geo-status').innerHTML = `<i class="fas fa-location-dot"></i> GPS Active`;
+                    document.getElementById('geo-status').innerHTML = `<i class="fas fa-location-dot"></i> GPS Verified`;
                 });
             }
 
             try {
+                // Latest Fetch Protocol: Handles CORS & Google Redirects
                 const response = await fetch(`${SCRIPT_URL}?action=getHeaders&sheetUrl=${encodeURIComponent(rawUrl)}`, {
-                    method: 'GET', redirect: 'follow'
+                    method: 'GET',
+                    redirect: 'follow'
                 });
+
                 const headers = await response.json();
-                if(headers.error) throw new Error();
+                if(headers.error) throw new Error(headers.error);
 
                 updateSyncIndicator(true);
                 box.innerHTML = "";
@@ -321,9 +286,10 @@
                         box.appendChild(input);
                     }
                 });
-            } catch (e) { 
+            } catch (e) {
                 updateSyncIndicator(false);
-                alert("Sync Failed. Check Sheet Permissions."); 
+                alert("Fetch Error: Ensure the sheet is shared as 'Editor' with 'Anyone with the link'.");
+                box.innerHTML = "";
             }
         }
 
@@ -339,38 +305,49 @@
             const url = document.getElementById('sheet-url').value;
             const fields = {};
             document.querySelectorAll('#dynamic-inputs input').forEach(i => fields[i.dataset.h] = i.value);
+            const btn = document.getElementById('submit-btn');
+            btn.innerText = "SENDING...";
             
             try {
                 await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ sheetUrl: url, fields }) });
                 const logs = JSON.parse(localStorage.getItem('fp_logs') || '[]');
                 logs.push({ stamp: new Date().toLocaleString(), data: fields });
                 localStorage.setItem('fp_logs', JSON.stringify(logs));
-                alert("Success!");
+                alert("Data Appended!");
                 renderLogs();
-                // Clear non-geo fields
                 document.querySelectorAll('#dynamic-inputs input').forEach(i => {
                    if(!i.dataset.h.toLowerCase().includes('lat') && !i.dataset.h.toLowerCase().includes('long')) i.value = "";
                 });
             } catch (e) { alert("Network Error"); }
+            btn.innerText = "SEND TO SHEET";
         }
 
-        function undoLastLocal() {
-            if(confirm("Delete last entry from local history? (Note: This does not delete it from the Google Sheet)")) {
+        async function undoCloudEntry() {
+            const url = document.getElementById('sheet-url').value;
+            if(!confirm("Delete the last row on the Cloud Sheet?")) return;
+            const btn = document.getElementById('undo-btn');
+            btn.innerText = "DELETING...";
+
+            try {
+                await fetch(SCRIPT_URL, { 
+                    method: 'POST', 
+                    mode: 'no-cors', 
+                    body: JSON.stringify({ action: 'undo', sheetUrl: url }) 
+                });
                 let logs = JSON.parse(localStorage.getItem('fp_logs') || '[]');
-                if(logs.length > 0) {
-                    logs.pop();
-                    localStorage.setItem('fp_logs', JSON.stringify(logs));
-                    renderLogs();
-                    alert("Local entry removed.");
-                }
-            }
+                logs.pop();
+                localStorage.setItem('fp_logs', JSON.stringify(logs));
+                renderLogs();
+                alert("Cloud Row Removed.");
+            } catch (e) { alert("Undo failed."); }
+            btn.innerText = "UNDO LAST ENTRY (CLOUD)";
         }
 
         function renderLogs() {
             const logs = JSON.parse(localStorage.getItem('fp_logs') || '[]');
             const list = document.getElementById('log-list');
-            if(!logs.length) { list.innerHTML = "No records."; return; }
-            list.innerHTML = logs.map(i => `<div style="font-size:0.75rem; padding:12px; border-bottom:1px solid #eee; background:#fff;"><b>${i.stamp}</b><br>${JSON.stringify(i.data).replace(/[{}"]/g, '')}</div>`).reverse().join('');
+            if(!logs.length) { list.innerHTML = "No history."; return; }
+            list.innerHTML = logs.map(i => `<div style="font-size:0.75rem; padding:10px; border-bottom:1px solid #eee; background:white;"><b>${i.stamp}</b><br>${JSON.stringify(i.data).replace(/[{}"]/g, '')}</div>`).reverse().join('');
         }
 
         function exportCSV() {
@@ -379,10 +356,9 @@
             let csv = "Timestamp,Data\n" + logs.map(i => `${i.stamp},"${JSON.stringify(i.data).replace(/"/g, '""')}"`).join("\n");
             const blob = new Blob([csv], { type: 'text/csv' });
             const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a'); a.href = url; a.download = "FieldData_Backup.csv"; a.click();
+            const a = document.createElement('a'); a.href = url; a.download = "FieldBackup.csv"; a.click();
         }
 
-        function clearSaved() { localStorage.removeItem('fp_saved_url'); updateSyncIndicator(false); location.reload(); }
         window.onclick = (e) => { if (!e.target.closest('.menu-sys')) document.getElementById('menu-dropdown').style.display = 'none'; }
     </script>
 </body>
